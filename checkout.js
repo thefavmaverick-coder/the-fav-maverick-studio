@@ -1,59 +1,208 @@
+/* LOAD CART */
+
 const cart =
-JSON.parse(localStorage.getItem("cart")) || [];
+JSON.parse(
+localStorage.getItem("cart")
+) || [];
+
+/* ELEMENTS */
 
 const checkoutItems =
-document.getElementById("checkout-items");
+document.getElementById(
+"checkout-items"
+);
+
+const subtotalEl =
+document.getElementById(
+"subtotal"
+);
+
+const shippingEl =
+document.getElementById(
+"shipping"
+);
+
+const discountEl =
+document.getElementById(
+"discount"
+);
 
 const checkoutTotal =
-document.getElementById("checkout-total");
+document.getElementById(
+"checkout-total"
+);
 
-let total = 0;
+/* VALUES */
 
-/* SHOW PRODUCTS */
+let subtotal = 0;
 
-if(cart.length === 0){
+let totalItems = 0;
 
-    checkoutItems.innerHTML =
+let shipping = 80;
 
-    "<p>Your cart is empty</p>";
+let discount = 0;
 
-}else{
+/* EMPTY CART */
 
-    cart.forEach(item => {
+if(cart.length===0){
 
-        total += item.price * item.qty;
+checkoutItems.innerHTML = `
 
-        checkoutItems.innerHTML += `
+<div class="empty-cart">
 
-        <div class="checkout-item">
+<h3>Cart Empty 🛒</h3>
 
-            <img src="${item.image}">
+<p>Add products first</p>
 
-            <div>
+<a href="index.html">
 
-                <h4>
-                ${item.name}
-                (${item.size})
-                </h4>
+<button>
 
-                <p>
-                ₹${item.price}
-                x ${item.qty}
-                </p>
+Back To Shop
 
-            </div>
+</button>
 
-        </div>
+</a>
 
-        `;
+</div>
 
-    });
+`;
 
 }
 
-checkoutTotal.innerText = total;
+/* SHOW PRODUCTS */
 
-/* PAYMENT METHOD */
+else{
+
+cart.forEach(item=>{
+
+const price =
+
+Number(
+item.price
+);
+
+const qty =
+
+Number(
+item.qty
+);
+
+/* SUBTOTAL */
+
+subtotal +=
+
+price * qty;
+
+/* TOTAL ITEMS */
+
+totalItems += qty;
+
+checkoutItems.innerHTML += `
+
+<div class="checkout-item">
+
+<img
+src="${item.image}"
+
+style="
+width:90px;
+height:90px;
+object-fit:cover;
+border-radius:12px;
+">
+
+<div>
+
+<h4>
+
+${item.name}
+
+(${item.size})
+
+</h4>
+
+<p>
+
+Qty :
+
+${qty}
+
+</p>
+
+<p>
+
+₹${price}
+
+×
+
+${qty}
+
+</p>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+
+/* SHIPPING */
+
+if(subtotal>=999){
+
+shipping=0;
+
+}
+
+/* TOTAL */
+
+let grandTotal =
+
+subtotal +
+shipping -
+discount;
+
+/* SHOW TOTAL */
+
+subtotalEl.innerText =
+subtotal;
+
+shippingEl.innerText =
+
+shipping===0
+
+?
+
+"FREE"
+
+:
+
+"₹80";
+
+discountEl.innerText =
+discount;
+
+checkoutTotal.innerText =
+grandTotal;
+
+
+document.getElementById(
+"total-items"
+).innerText =
+totalItems;
+
+const qty = Number(item.qty);
+
+totalItems += qty;
+
+
+/* PAYMENT BOX */
 
 const paymentOptions =
 
@@ -61,219 +210,270 @@ document.querySelectorAll(
 'input[name="payment"]'
 );
 
-paymentOptions.forEach(option => {
+paymentOptions.forEach(
+option=>{
 
-    option.addEventListener(
+option.addEventListener(
+"change",
 
-        "change",
+function(){
 
-        function(){
+if(
+this.value==="ONLINE"
+){
 
-            if(this.value === "UPI"){
+document
+.getElementById(
+"upi-box"
+)
+.style.display=
+"block";
 
-                document
-                .getElementById("upi-box")
-                .style.display = "block";
+}else{
 
-            }else{
+document
+.getElementById(
+"upi-box"
+)
+.style.display=
+"none";
 
-                document
-                .getElementById("upi-box")
-                .style.display = "none";
+}
 
-            }
+}
 
-        }
-
-    );
+);
 
 });
+
+/* PINCODE AUTO */
+
+document
+.getElementById(
+"pincode"
+)
+
+.addEventListener(
+
+"blur",
+
+async()=>{
+
+const pin =
+
+document
+.getElementById(
+"pincode"
+)
+.value;
+
+if(pin.length===6){
+
+try{
+
+const response =
+
+await fetch(
+
+`https://api.postalpincode.in/pincode/${pin}`
+
+);
+
+const data =
+await response.json();
+
+if(
+data[0].Status==="Success"
+){
+
+document
+.getElementById(
+"city"
+)
+
+.value=
+
+data[0]
+.PostOffice[0]
+.District;
+
+document
+.getElementById(
+"state"
+)
+
+.value=
+
+data[0]
+.PostOffice[0]
+.State;
+
+}
+
+}catch(error){
+
+console.log(error);
+
+}
+
+}
+
+}
+
+);
 
 /* PLACE ORDER */
 
 function placeOrder(){
 
-    const name =
-    document.getElementById("name").value.trim();
+const name =
+document.getElementById(
+"name"
+).value.trim();
 
-    const phone =
-    document.getElementById("phone").value.trim();
+const phone =
+document.getElementById(
+"phone"
+).value.trim();
 
-    const address =
-    document.getElementById("address").value.trim();
+const email =
+document.getElementById(
+"email"
+).value.trim();
 
-    const city =
-    document.getElementById("city").value.trim();
+const address =
+document.getElementById(
+"address"
+).value.trim();
 
-    const state =
-    document.getElementById("state").value.trim();
+const city =
+document.getElementById(
+"city"
+).value.trim();
 
-    const pincode =
-    document.getElementById("pincode").value.trim();
+const state =
+document.getElementById(
+"state"
+).value.trim();
 
-    const paymentMethod =
+const pincode =
+document.getElementById(
+"pincode"
+).value.trim();
 
-    document.querySelector(
-    'input[name="payment"]:checked'
-    ).value;
+const paymentMethod =
 
-    /* REQUIRED CHECK */
+document.querySelector(
+'input[name="payment"]:checked'
+).value;
 
-    if(
+/* REQUIRED */
 
-        name === "" ||
-        phone === "" ||
-        address === "" ||
-        city === "" ||
-        state === "" ||
-        pincode === ""
+if(
 
-    ){
+name===""
 
-        alert(
-        "Please fill all required details"
-        );
+||
 
-        return;
-    }
+phone===""
 
-    /* PHONE CHECK */
+||
 
-    if(phone.length !== 10){
+email===""
 
-        alert(
-        "Enter valid 10 digit phone number"
-        );
+||
 
-        return;
-    }
+address===""
 
-    /* PINCODE CHECK */
+||
 
-    if(pincode.length < 6){
+city===""
 
-        alert(
-        "Enter valid pincode"
-        );
+||
 
-        return;
-    }
+state===""
 
-    /* SAVE ORDER */
+||
 
-    const order = {
+pincode===""
 
-        customer:name,
+){
 
-        phone:phone,
-
-        address:address,
-
-        city:city,
-
-        state:state,
-
-        pincode:pincode,
-
-        payment:paymentMethod,
-
-        items:cart,
-
-        total:total,
-
-        date:new Date()
-
-    };
-
-    localStorage.setItem(
-
-        "latestOrder",
-
-        JSON.stringify(order)
-
-    );
-
-    /* SUCCESS */
-
-  /* WHATSAPP MESSAGE */
-
-let message =
-
-`🛍️ NEW ORDER - The_Fav'Maverick_Studio
-
-👤 Name : ${name}
-
-📞 Phone : ${phone}
-
-🏠 Address : ${address}
-
-🌆 City : ${city}
-
-🗺️ State : ${state}
-
-📮 Pincode : ${pincode}
-
-💳 Payment : ${paymentMethod}
-
-------------------------
-
-`;
-
-cart.forEach(item => {
-
-message +=
-
-`📦 ${item.name}
-
-📏 Size : ${item.size}
-
-🔢 Qty : ${item.qty}
-
-💰 Price : ₹${item.price}
-
-------------------------
-
-`;
-
-});
-
-message +=
-
-`🧾 TOTAL : ₹${total}`;
-
-/* YOUR NUMBER */
-
-const whatsappNumber =
-
-"916369624206";
-
-/* OPEN WHATSAPP */
-
-const whatsappURL =
-
-`https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-
-window.open(
-whatsappURL,
-"_blank"
+alert(
+"Please fill complete delivery address"
 );
 
-/* CLEAR CART */
+return;
 
-localStorage.removeItem("cart");
+}
 
-/* REDIRECT */
+/* PHONE */
 
-window.location.href =
+if(
+phone.length!==10
+){
+
+alert(
+"Enter valid 10 digit phone number"
+);
+
+return;
+
+}
+
+/* EMAIL */
+
+if(
+!email.includes("@")
+){
+
+alert(
+"Enter valid email address"
+);
+
+return;
+
+}
+
+/* PINCODE */
+
+if(
+pincode.length!==6
+){
+
+alert(
+"Enter valid pincode"
+);
+
+return;
+
+}
+
+/* ONLINE PAYMENT */
+
+if(
+paymentMethod==="ONLINE"
+){
+
+startRazorpay(
+grandTotal
+);
+
+return;
+
+}
+
+/* COD */
+
+alert(
+"Order Placed Successfully ✅"
+);
+
+localStorage.removeItem(
+"cart"
+);
+
+window.location.href=
 "success.html";
-
-    /* CLEAR CART */
-
-    localStorage.removeItem("cart");
-
-    /* REDIRECT */
-
-    window.location.href =
-    "success.html";
 
 }
