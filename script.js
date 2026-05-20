@@ -34,7 +34,10 @@ function renderProducts(){
 
 <img src="${product.image}"
 class="product-img"
-onclick="openPopup(${product.id})">
+onclick="
+window.location.href=
+'product.html?id=${product.id}'
+"
 
 <h3>${product.name}</h3>
 
@@ -158,7 +161,11 @@ function filterProducts(){
 
         <img src="${product.image}"
         class="product-img"
-        onclick="openPopup(${product.id})">
+        onclick="
+        window.location.href=
+        'product.html?id=${product.id}'
+        "
+        >
 
         <h3>${product.name}</h3>
 
