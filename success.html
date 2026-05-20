@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Order Success</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+</head>
+
+<body>
+
+<div class="success-page">
+
+    <div class="success-box">
+
+        <h1>
+        🎉 Order Placed Successfully
+        </h1>
+
+        <p id="order-id"></p>
+
+        <div id="order-details">
+
+        </div>
+
+        <a href="index.html">
+
+            <button>
+            Continue Shopping
+            </button>
+
+        </a>
+
+    </div>
+
+</div>
+
+<script>
+
+const order =
+
+JSON.parse(
+localStorage.getItem("latestOrder")
+);
+
+/* RANDOM ORDER ID */
+
+const orderId =
+
+"TFM" +
+
+Math.floor(
+Math.random() * 100000
+);
+
+document
+.getElementById("order-id")
+.innerText =
+
+"Order ID : " + orderId;
+
+/* SHOW ORDER DETAILS */
+
+let html = `
+
+<h2>Customer Details</h2>
+
+<p>
+<b>Name :</b>
+${order.customer}
+</p>
+
+<p>
+<b>Phone :</b>
+${order.phone}
+</p>
+
+<p>
+<b>Address :</b>
+${order.address}
+</p>
+
+<p>
+<b>City :</b>
+${order.city}
+</p>
+
+<p>
+<b>State :</b>
+${order.state}
+</p>
+
+<p>
+<b>Pincode :</b>
+${order.pincode}
+</p>
+
+<p>
+<b>Payment :</b>
+${order.payment}
+</p>
+
+<hr>
+
+<h2>Products</h2>
+
+`;
+
+order.items.forEach(item => {
+
+html += `
+
+<div class="success-item">
+
+    <img src="${item.image}">
+
+    <div>
+
+        <h4>
+        ${item.name}
+        (${item.size})
+        </h4>
+
+        <p>
+        ₹${item.price}
+        x ${item.qty}
+        </p>
+
+    </div>
+
+</div>
+
+`;
+
+});
+
+html += `
+
+<hr>
+
+<h2>
+Total :
+₹${order.total}
+</h2>
+
+<p class="delivery-text">
+
+Estimated Delivery :
+3 - 5 Days 🚚
+
+</p>
+
+`;
+
+document
+.getElementById("order-details")
+.innerHTML = html;
+
+</script>
+
+</body>
+
+</html>
