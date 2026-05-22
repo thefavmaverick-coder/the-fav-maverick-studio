@@ -4,7 +4,7 @@ const options = {
 
 key:
 
-"rzp_test_YOURKEY",
+"rzp_live_Ss2wR4oKoWhCAT",
 
 amount:
 
@@ -24,7 +24,7 @@ description:
 
 image:
 
-"images/logo.png",
+"images/Qrcode.jpeg",
 
 prefill:{
 

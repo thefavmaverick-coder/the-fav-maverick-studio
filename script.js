@@ -38,7 +38,7 @@ onclick="
 window.location.href=
 'product.html?id=${product.id}'
 "
-
+>
 <h3>${product.name}</h3>
 
 <p class="price">
@@ -390,13 +390,25 @@ function saveCart(){
 
 /* TOGGLE CART */
 
-function toggleCart(){
+function toggleCart(e){
 
-    document
-    .getElementById("cart")
-    .classList.toggle("active");
+if(e){
 
-    overlay.classList.toggle("active");
+e.preventDefault();
+
+}
+
+document
+.getElementById(
+"cart"
+)
+.classList.toggle(
+"active"
+);
+
+overlay.classList.toggle(
+"active"
+);
 
 }
 
@@ -875,41 +887,3 @@ alert(
 closeProduct();
 
 }
-
-Products.forEach(product=>{
-
-productsContainer.innerHTML += `
-
-<div class="product-card">
-
-<img
-src="${product.image}"
-
-onclick="openProduct(${product.id})"
-
-style="cursor:pointer;">
-
-<h3>
-
-${product.name}
-
-</h3>
-
-<p>
-
-Starting ₹${product.sizes[0].price}
-
-</p>
-
-<button
-onclick="openProduct(${product.id})">
-
-View Product
-
-</button>
-
-</div>
-
-`;
-
-});
