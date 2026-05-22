@@ -157,3 +157,14 @@ ${order.expected_delivery || "-"}
 }
 
 loadMyOrders();
+
+async function logoutUser(){
+
+await supabaseClient
+.auth
+.signOut();
+
+window.location.href =
+"login.html";
+
+}

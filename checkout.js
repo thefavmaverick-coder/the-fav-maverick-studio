@@ -432,8 +432,6 @@ console.log(error);
 );
 
 /* PLACE ORDER */
-/* PLACE ORDER */
-
 async function placeOrder(){
 
 const name =
@@ -522,60 +520,47 @@ return;
 const order = {
 
 id:
-
 Date.now(),
 
 customer:
-
 name,
 
 phone:
-
 phone,
 
 email:
-
 email,
 
 address:
-
 address,
 
 city:
-
 city,
 
 state:
-
 state,
 
 pincode:
-
 pincode,
 
 payment:
-
 paymentMethod,
 
 items:
-
 cart,
 
 total:
-
 grandTotal,
 
 status:
-
 "Confirmed",
 
 date:
-
 new Date()
 
 };
 
-/* SAVE LATEST */
+/* SAVE INVOICE */
 
 localStorage.setItem(
 
@@ -586,6 +571,11 @@ order
 )
 
 );
+
+/* EMAIL */
+
+try{
+
 emailjs.send(
 
 "service_fav'maverick",
@@ -595,60 +585,40 @@ emailjs.send(
 {
 
 customer_name:
-
 name,
 
 customer_email:
-
 email,
 
 order_id:
-
 order.id,
 
 total:
-
 grandTotal,
 
 status:
-
 "Confirmed"
 
 }
 
 );
-/* SAVE ORDERS */
 
-let orders =
+}catch(error){
 
-JSON.parse(
-localStorage.getItem(
-"orders"
-)
-)||[];
+console.log(error);
 
-orders.push(
-order
-);
-
-localStorage.setItem(
-
-"orders",
-
-JSON.stringify(
-orders
-)
-
-);
+}
 
 /* SAVE TO SUPABASE */
 
 try{
 
-if(
-typeof supabaseClient !==
-"undefined"
-){
+const {
+data:{user}
+
+} = await supabaseClient
+.auth
+.getUser();
 
 await supabaseClient
 
@@ -658,35 +628,52 @@ await supabaseClient
 
 .insert([{
 
-customer_name:name,
+id:
+order.id,
 
-phone:phone,
+customer_name:
+name,
 
-email:email,
+phone:
+phone,
 
-address:address,
+email:
+user?.email || email,
 
-city:city,
+address:
+address,
 
-state:state,
+city:
+city,
 
-pincode:pincode,
+state:
+state,
+
+pincode:
+pincode,
 
 payment_method:
-
 paymentMethod,
 
-total:
+items:
+cart,
 
+total:
 grandTotal,
 
 status:
+"Confirmed",
 
-"Confirmed"
+courier_name:
+"",
+
+tracking_id:
+"",
+
+expected_delivery:
+""
 
 }]);
-
-}
 
 }catch(error){
 
@@ -694,6 +681,12 @@ console.log(
 "Supabase Error",
 error
 );
+
+alert(
+"Order save failed ❌"
+);
+
+return;
 
 }
 
@@ -711,7 +704,7 @@ return;
 
 }
 
-/* COD */
+/* COD SUCCESS */
 
 alert(
 "Order Placed Successfully ✅"
@@ -721,7 +714,7 @@ localStorage.removeItem(
 "cart"
 );
 
-window.location.href=
+window.location.href =
 "success.html";
 
 }

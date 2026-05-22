@@ -12,6 +12,32 @@ document.getElementById(
 "track-result"
 );
 
+/* GET LOGGED USER */
+
+const {
+data:{user}
+
+} = await supabaseClient
+.auth
+.getUser();
+
+if(!user){
+
+alert(
+"Please login first"
+);
+
+window.location.href =
+"login.html";
+
+return;
+
+}
+
+const email = user.email;
+
+/* FIND ONLY CUSTOMER ORDER */
+
 const {
 
 data,
@@ -31,11 +57,16 @@ error
 id
 )
 
+.eq(
+"email",
+email
+)
+
 .single();
 
 if(error || !data){
 
-result.innerHTML=
+result.innerHTML =
 
 "Order Not Found";
 
