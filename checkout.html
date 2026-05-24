@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>
+Checkout
+</title>
+
+<link rel="stylesheet"
+href="style.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap"
+rel="stylesheet">
+
+</head>
+
+<body>
+
+<div class="checkout-page">
+
+<h1>
+Secure Checkout
+</h1>
+
+<div class="checkout-container">
+
+<!-- DELIVERY FORM -->
+
+<div class="checkout-form">
+
+<h2>
+
+Delivery Address
+
+</h2>
+
+<input
+type="text"
+id="name"
+placeholder="Full Name"
+required>
+
+<input
+type="tel"
+id="phone"
+placeholder="10 Digit Phone Number"
+required
+maxlength="10">
+
+<input
+type="email"
+id="email"
+placeholder="Email Address"
+required>
+
+<input
+type="text"
+id="door"
+placeholder="Door / Flat Number">
+
+<input
+type="text"
+id="street"
+placeholder="Street Name">
+
+<input
+type="text"
+id="area"
+placeholder="Area / Locality">
+
+<input
+type="text"
+id="landmark"
+placeholder="Landmark">
+<textarea
+id="address"
+placeholder="Complete Delivery Address"
+required>
+</textarea>
+
+<input
+type="text"
+id="city"
+placeholder="City"
+required>
+
+<input
+type="text"
+id="district"
+placeholder="District"
+required>
+
+<input
+type="text"
+id="state"
+placeholder="State"
+required>
+
+<input
+type="text"
+id="country"
+placeholder="Country"
+value="India">
+
+<input
+type="text"
+id="pincode"
+placeholder="Pincode"
+required
+maxlength="6">
+
+<div class="delivery-note">
+
+🚚 Free Delivery Above ₹999
+
+</div>
+
+</div>
+
+<!-- ORDER SUMMARY -->
+<div class="order-summary">
+
+<h2>
+
+🛍 Your Order Summary
+
+</h2>
+
+<div id="checkout-items">
+
+</div>
+
+<div class="summary-card">
+
+<div class="summary-row">
+
+<span>
+
+Subtotal
+
+</span>
+
+<span>
+
+₹<span id="subtotal">
+
+0
+
+</span>
+
+</span>
+
+</div>
+
+<div class="summary-row">
+
+<span>
+
+🚚 Shipping
+
+</span>
+
+<span id="shipping">
+
+₹80
+
+</span>
+
+</div>
+<div class="summary-row discount-row">
+
+<span>
+
+🎁 Discount
+
+</span>
+
+<span>
+
+- ₹<span id="discount">
+
+0
+
+</span>
+
+</span>
+
+</div>
+
+<!-- ADD HERE -->
+
+<div class="summary-row">
+
+<span>
+
+Items
+
+</span>
+
+<span id="total-items">
+
+0
+
+</span>
+
+</div>
+
+<hr>
+
+<div class="grand-box">
+
+<h3>
+
+Grand Total
+
+</h3>
+
+<h2>
+
+₹<span id="checkout-total">
+
+0
+
+</span>
+
+</h2>
+
+</div>
+
+<div class="save-box">
+
+🔥 Free delivery above ₹999
+
+</div>
+
+</div>
+
+<h2>
+
+💳 Payment Method
+
+</h2>
+
+<div class="payment-box">
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="COD"
+checked>
+
+🚚 Cash On Delivery
+
+</label>
+
+<label class="payment-option">
+
+<input
+type="radio"
+name="payment"
+value="ONLINE">
+
+💳 GPay / PhonePe / Paytm / UPI
+
+</label>
+
+</div>
+
+</div>
+<!-- ONLINE BOX -->
+
+<div id="upi-box"
+style="display:none;">
+
+<h3>
+
+💳 Secure Online Payment
+
+</h3>
+
+<p>
+
+Pay using:
+
+UPI
+
+GPay
+
+PhonePe
+
+Paytm
+
+Cards
+
+Net Banking
+
+</p>
+
+</div>
+
+<div class="checkout-actions">
+
+<button
+class="back-btn"
+onclick="window.location.href='index.html'">
+
+← Continue Shopping
+
+</button>
+
+<button
+type="button"
+class="place-btn"
+onclick="placeOrder()">
+
+Proceed To Payment
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+<!-- RAZORPAY -->
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<!-- SUPABASE LIBRARY -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<!-- FILES -->
+ <script
+src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+
+</script>
+
+<script>
+
+emailjs.init(
+"Qv7fG-RQbOkOjdwDf"
+);
+
+</script>
+
+<script src="payment.js"></script>
+
+<script src="supabase.js"></script>
+
+<script src="checkout.js"></script>
+
+</body>
+
+</html>
