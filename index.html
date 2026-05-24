@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+    content="width=device-width, initial-scale=1.0">
+    <meta
+name="description"
+
+content="Premium anime posters, car posters, aesthetic wall art, polaroids and custom gifts from The Fav' Maverick Studio">
+
+<meta
+name="keywords"
+
+content="wall posters, anime posters, aesthetic room decor, car posters, wall art India">
+
+<meta
+name="author"
+
+content="The Fav' Maverick Studio">
+
+   <title>
+
+The Fav' Maverick Studio
+</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link
+rel="icon"
+type="image/png"
+href="images/brand black.png">
+</head>
+
+<body>
+
+<!-- HEADER -->
+
+<header class="navbar">
+
+<div class="nav-left">
+
+<img
+src="images/BRAND LOGO.png"
+class="logo-img"
+alt="The Fav'Maverick Studio">
+<h2>
+
+The_Fav'Maverick_Studio
+
+</h2>
+
+</div>
+
+<nav class="nav-links">
+
+<a href="#">
+
+🏠 Home
+
+</a>
+
+<a href="#products">
+
+🛍 Products
+
+<a href="login.html">
+
+🔐 Login
+
+</a>
+
+<a href="contact.html">
+
+📞 Contact
+
+</a>
+
+</nav>
+
+<div class="nav-right">
+
+<a href="#"
+
+class="cart-btn"
+
+onclick="toggleCart(event)">
+
+🛒 Cart
+
+<span id="cart-count">
+
+0
+
+</span>
+
+</a>
+
+</div>
+
+</header>
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="hero-content">
+
+        <h1>
+            Turn Your Memories Into Art ✨
+        </h1>
+
+        <p>
+            Premium posters, anime prints,
+polaroids & aesthetic gifts
+crafted for modern rooms.
+        </p>
+
+        <button onclick="scrollProducts()">
+            Shop Now
+        </button>
+        
+
+    </div>
+
+</section>
+
+<div class="hero-strip">
+
+<span>🔥 Trending Designs</span>
+
+<span>⭐ Premium Poster Prints</span>
+
+<span>⭐ Trusted Quality</span>
+
+<span>❤️ Aesthetic Wall Art Posters</span>
+
+<span>🏠 Modern Room Decor</span>
+
+<span>🎁 Perfect Gift Choice</span>
+
+<span>💯 Secure Checkout</span>
+
+<span>📦 Safe Packaging</span>
+
+<span>🚚 Fast Delivery</span>
+
+</div>
+<div class="category-bar">
+
+<button>🎌 Anime</button>
+
+<button>🦸 Marvel</button>
+
+<button>🎬 Cinema</button>
+
+<button>🏎 Cars</button>
+
+<button>🏎 F1</button>
+
+<button>🏍 Bikes</button>
+
+<button>🎮 Gaming</button>
+
+<button>🌈 Aesthetic</button>
+
+<button>😍cartoons</button>
+
+<button>💃 Dance🕺</button>
+
+<button>🐾 Animals</button>
+
+<button>🍔 Foods</button>
+
+<button>🎭 Actors</button>
+
+<button>👑 Actress</button>
+
+<button>🎞 Bollywood</button>
+
+<button>🎬 Kollywood</button>
+
+<button>🎥 Tollywood</button>
+
+<button>🎭 Mollywood</button>
+
+<button>✨ New</button>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<section id="products">
+
+    <div class="section-title">
+
+        <h2>Trending Products</h2>
+
+    </div>
+    <!-- SEARCH + FILTER -->
+
+<div class="filters">
+
+    <input
+    type="text"
+    id="search"
+    placeholder="Search products..."
+    onkeyup="filterProducts()">
+
+    <select id="size-filter"
+    onchange="filterProducts()">
+
+        <option value="All">
+            All Sizes
+        </option>
+
+        <option value="A4">A4</option>
+
+        <option value="A5">A5</option>
+
+        <option value="A6">A6</option>
+
+    </select>
+
+</div>
+
+    <section class="products"
+    id="product-list">
+
+    </section>
+
+</section>
+
+<!-- REVIEW LIST -->
+
+<div class="review-container"
+id="review-container">
+
+</div>
+<section class="reviews">
+
+<h2>
+
+Customer Reviews
+
+</h2>
+
+<div
+class="review-container"
+id="review-container">
+
+</div>
+
+<div class="review-form">
+
+<input
+type="text"
+id="review-name"
+placeholder="Your Name">
+
+<select id="review-rating">
+
+<option>
+
+5 ⭐
+
+</option>
+
+<option>
+
+4 ⭐
+
+</option>
+
+<option>
+
+3 ⭐
+
+</option>
+
+<option>
+
+2 ⭐
+
+</option>
+
+<option>
+
+1 ⭐
+
+</option>
+
+</select>
+
+<textarea
+id="review-text"
+placeholder="Share your experience">
+
+</textarea>
+
+<button
+onclick="addReview()">
+
+Submit Review
+
+</button>
+
+</div>
+
+</section>
+
+
+<!-- CART -->
+
+<div id="cart"
+class="cart">
+
+    <div class="cart-top">
+
+        <h2>Your Cart</h2>
+
+        <button class="close-btn"
+        onclick="toggleCart()">
+            ✖
+        </button>
+
+    </div>
+
+    <div id="cart-items"></div>
+
+    <h3>
+        Total: ₹<span id="total">0</span>
+    </h3>
+
+   <button class="checkout-btn"
+onclick="goToCheckout()">
+Checkout
+</button>
+
+</div>
+
+<!-- OVERLAY -->
+
+<div id="overlay"
+class="overlay"
+onclick="toggleCart()">
+</div>
+<div id="productModal" class="product-modal">
+
+<div class="modal-box">
+
+<span
+class="close-modal"
+onclick="closeProduct()">
+
+✕
+
+</span>
+
+<div class="modal-left">
+
+<img
+id="modal-img"
+src="">
+
+</div>
+
+<div class="modal-right">
+
+<h1 id="modal-name">
+
+</h1>
+
+<p id="modal-price">
+
+</p>
+
+<p id="modal-desc">
+
+</p>
+
+<select id="modal-size">
+
+</select>
+
+<button
+class="modal-cart-btn"
+onclick="addModalCart()">
+
+🛒 Add To Cart
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- PRODUCT POPUP -->
+
+<div id="popup"
+class="popup">
+
+   <div class="popup-content">
+
+        <span class="close-popup"
+        onclick="closePopup()">
+        ✖
+        </span>
+
+     <img
+id="popup-img"
+alt="Product Image">
+
+        <div class="popup-details">
+
+            <h2 id="popup-title"></h2>
+
+            <p id="popup-price"></p>
+
+            <p id="popup-desc"></p>
+
+            <button id="popup-btn">
+
+                Add To Cart
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<script src="products.js"></script>
+
+<script src="script.js"></script>
+<!-- FOOTER -->
+
+<!-- PREMIUM FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-container">
+
+<!-- BRAND -->
+
+<div class="footer-brand">
+
+<h2>
+The Fav' Maverick Studio
+</h2>
+
+<p>
+
+Premium posters, aesthetic wall art,
+polaroids and custom gifts for modern rooms.
+
+</p>
+
+</div>
+
+<!-- QUICK LINKS -->
+
+<div class="footer-links">
+
+<h3>
+Quick Links
+</h3>
+
+<a href="#">
+Home
+</a>
+
+<a href="#products">
+Products
+</a>
+
+<a href="about.html">
+About
+</a>
+
+<a href="contact.html">
+Contact
+</a>
+
+</div>
+
+<!-- SUPPORT -->
+
+<div class="footer-links">
+
+<h3>
+Support
+</h3>
+
+<a href="my-orders.html">
+
+My Orders
+
+</a>
+
+<a href="track.html">
+
+Track Order
+
+</a>
+
+<a href="profile.html">
+
+Profile
+
+</a>
+
+<a href="login.html">
+
+Login
+
+</a>
+
+<a href="privacy.html">
+Privacy Policy
+</a>
+
+<a href="refund.html">
+Refund Policy
+</a>
+
+<a href="shipping.html">
+
+Shipping Policy
+
+</a>
+
+<a href="terms.html">
+Terms & Conditions
+</a>
+
+</div>
+
+<!-- SOCIAL -->
+
+<div class="footer-social">
+
+<h3>
+Connect With Us
+</h3>
+
+<a href="https://www.instagram.com/thefavmaverickstudio/"
+target="_blank">
+
+📸 Instagram
+
+</a>
+
+<a href="https://wa.me/916369624206"
+target="_blank">
+
+💬 WhatsApp
+
+</a>
+
+<a href="mailto:thefavmaverickstudio@gmail.com">
+
+✉ Email
+
+</a>
+
+</div>
+
+</div>
+<hr>
+
+<p class="footer-copy">
+    
+
+Made with ❤️ by
+
+The Fav' Maverick Studio
+
+</p>
+<p class="footer-copy">
+    
+
+© 2026 The Fav' Maverick Studio.
+All Rights Reserved.
+
+</p>
+
+</footer>
+
+<script src="reviews.js">
+
+</script>
+
+</body>
+</html>
+
